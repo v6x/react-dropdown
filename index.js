@@ -87,7 +87,7 @@ class Dropdown extends Component {
       selected: {
         value,
         label},
-      isOpen: false
+      isOpen: this.props.multiSelect ? true : false
     }
     this.fireChangeEvent(newState)
     this.setState(newState)
@@ -120,7 +120,6 @@ class Dropdown extends Component {
         key={value}
         className={optionClass}
         onMouseDown={this.setValue.bind(this, value, label)}
-        onClick={this.setValue.bind(this, value, label)}
         role='option'
         aria-selected={isSelected ? 'true' : 'false'}>
         {label}
