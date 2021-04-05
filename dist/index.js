@@ -149,7 +149,7 @@ var Dropdown = /*#__PURE__*/function (_Component) {
           value: value,
           label: label
         },
-        isOpen: this.props.multiSelect ? true : false
+        isOpen: this.props.multiSelect
       };
       this.fireChangeEvent(newState);
       this.setState(newState);

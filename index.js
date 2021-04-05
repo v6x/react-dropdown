@@ -87,7 +87,7 @@ class Dropdown extends Component {
       selected: {
         value,
         label},
-      isOpen: this.props.multiSelect ? true : false
+      isOpen: this.props.multiSelect
     }
     this.fireChangeEvent(newState)
     this.setState(newState)
