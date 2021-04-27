@@ -163,7 +163,7 @@ var Dropdown = /*#__PURE__*/function (_Component) {
     }
   }, {
     key: "renderOption",
-    value: function renderOption(option) {
+    value: function renderOption(option, key) {
       var _classes;
 
       var value = option.value;
@@ -177,7 +177,7 @@ var Dropdown = /*#__PURE__*/function (_Component) {
       var classes = (_classes = {}, _defineProperty(_classes, "".concat(this.props.baseClassName, "-option"), true), _defineProperty(_classes, option.className, !!option.className), _defineProperty(_classes, 'is-selected', isSelected), _classes);
       var optionClass = (0, _classnames["default"])(classes);
       return /*#__PURE__*/_react["default"].createElement("div", {
-        key: value,
+        key: key,
         className: optionClass,
         onMouseDown: this.setValue.bind(this, value, label),
         role: "option",
@@ -192,14 +192,14 @@ var Dropdown = /*#__PURE__*/function (_Component) {
       var _this$props = this.props,
           options = _this$props.options,
           baseClassName = _this$props.baseClassName;
-      var ops = options.map(function (option) {
+      var ops = options.map(function (option, idx) {
         if (option.type === 'group') {
           var groupTitle = /*#__PURE__*/_react["default"].createElement("div", {
             className: "".concat(baseClassName, "-title")
           }, option.name);
 
-          var _options = option.items.map(function (item) {
-            return _this2.renderOption(item);
+          var _options = option.items.map(function (item, idxFromGroup) {
+            return _this2.renderOption(item, "".concat(option.name, "_").concat(idxFromGroup));
           });
 
           return /*#__PURE__*/_react["default"].createElement("div", {
@@ -208,8 +208,13 @@ var Dropdown = /*#__PURE__*/function (_Component) {
             role: "listbox",
             tabIndex: "-1"
           }, groupTitle, _options);
+        } else if (option.type === 'separator') {
+          return /*#__PURE__*/_react["default"].createElement("div", {
+            className: "".concat(baseClassName, "-separator"),
+            key: "".concat(idx)
+          });
         } else {
-          return _this2.renderOption(option);
+          return _this2.renderOption(option, "".concat(idx));
         }
       });
       return ops.length ? ops : /*#__PURE__*/_react["default"].createElement("div", {

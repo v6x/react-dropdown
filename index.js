@@ -99,7 +99,7 @@ class Dropdown extends Component {
     }
   }
 
-  renderOption (option) {
+  renderOption (option, key) {
     let value = option.value
     if (typeof value === 'undefined') {
       value = option.label || option
@@ -117,7 +117,7 @@ class Dropdown extends Component {
 
     return (
       <div
-        key={value}
+        key={key}
         className={optionClass}
         onMouseDown={this.setValue.bind(this, value, label)}
         role='option'
@@ -129,12 +129,12 @@ class Dropdown extends Component {
 
   buildMenu () {
     let { options, baseClassName } = this.props
-    let ops = options.map((option) => {
+    let ops = options.map((option, idx) => {
       if (option.type === 'group') {
         let groupTitle = (<div className={`${baseClassName}-title`}>
           {option.name}
         </div>)
-        let _options = option.items.map((item) => this.renderOption(item))
+        let _options = option.items.map((item, idxFromGroup) => this.renderOption(item, `${option.name}_${idxFromGroup}`))
 
         return (
           <div className={`${baseClassName}-group`} key={option.name} role='listbox' tabIndex='-1'>
@@ -142,8 +142,10 @@ class Dropdown extends Component {
             {_options}
           </div>
         )
+      } else if (option.type === 'separator') {
+        return <div className={`${baseClassName}-separator`} key={`${idx}`} />
       } else {
-        return this.renderOption(option)
+        return this.renderOption(option, `${idx}`)
       }
     })
 
