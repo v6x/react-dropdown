@@ -1,4 +1,4 @@
-declare module "react-dropdown" {
+declare module "@voyagerx/react-dropdown" {
   import * as React from "react";
   export interface Option {
     label: React.ReactNode;
@@ -12,6 +12,7 @@ declare module "react-dropdown" {
   }
   export interface ReactDropdownProps {
     options: (Group | Option | string)[];
+    multiSelect: boolean;
     baseClassName?: string;
     className?: string;
     controlClassName?: string;
@@ -25,7 +26,6 @@ declare module "react-dropdown" {
     onFocus?: (arg: boolean) => void;
     value?: Option | string;
     placeholder?: String;
-    multiSelect?: boolean;
   }
 
   class ReactDropdown extends React.Component<ReactDropdownProps> {
