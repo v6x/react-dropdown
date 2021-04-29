@@ -8,14 +8,14 @@ declare module "@voyagerx/react-dropdown" {
   export interface Group {
     type: "group";
     name: string;
-    items: Option[];
+    items: Option<T>[];
   }
 
   export interface Separator {
     type: "separator";
   }
   export interface ReactDropdownProps {
-    options: (Group | Option | Separator | string)[];
+    options: (Group | Option<T> | Separator | string)[];
     multiSelect: boolean;
     baseClassName?: string;
     className?: string;
@@ -26,9 +26,9 @@ declare module "@voyagerx/react-dropdown" {
     disabled?: boolean;
     arrowClosed?: React.ReactNode,
     arrowOpen?: React.ReactNode,
-    onChange?: (arg: Option) => void;
+    onChange?: (arg: Option<T>) => void;
     onFocus?: (arg: boolean) => void;
-    value?: Option | string;
+    value?: Option<T> | string;
     placeholder?: String;
   }
 
