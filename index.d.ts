@@ -1,8 +1,8 @@
 declare module "@voyagerx/react-dropdown" {
   import * as React from "react";
-  export interface Option {
+  export interface Option<T = string> {
     label: React.ReactNode;
-    value: string;
+    value: T;
     className?: string;
   }
   export interface Group {
