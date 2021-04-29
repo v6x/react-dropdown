@@ -10,8 +10,12 @@ declare module "@voyagerx/react-dropdown" {
     name: string;
     items: Option[];
   }
+
+  export interface Separator {
+    type: "separator";
+  }
   export interface ReactDropdownProps {
-    options: (Group | Option | string)[];
+    options: (Group | Option | Separator | string)[];
     multiSelect: boolean;
     baseClassName?: string;
     className?: string;
