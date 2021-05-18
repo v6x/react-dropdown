@@ -1,6 +1,6 @@
 {
   "name": "@voyagerx/react-dropdown",
-  "version": "1.9.7",
+  "version": "1.9.8",
   "description": "React dropdown component",
   "main": "dist/index.js",
   "style": "style.css",

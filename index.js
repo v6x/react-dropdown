@@ -14,12 +14,13 @@ class Dropdown extends Component {
       isOpen: false
     }
     this.dropdownRef = createRef()
+    this.menuRef = createRef()
     this.mounted = true
     this.handleDocumentClick = this.handleDocumentClick.bind(this)
     this.fireChangeEvent = this.fireChangeEvent.bind(this)
   }
 
-  componentDidUpdate (prevProps) {
+  componentDidUpdate(prevProps, prevStates) {
     if (this.props.value !== prevProps.value) {
       if (this.props.value) {
         let selected = this.parseValue(this.props.value, this.props.options)
@@ -33,6 +34,12 @@ class Dropdown extends Component {
             value: ''
           }
         })
+      }
+    }
+
+    if (this.state.isOpen !== prevStates.isOpen) {
+      if (this.props.scrollOnOpen && this.menuRef.current) {
+        this.menuRef.current.scrollIntoView()
       }
     }
   }
@@ -201,7 +208,7 @@ class Dropdown extends Component {
     const value = (<div className={placeholderClass}>
       {placeHolderValue}
     </div>)
-    const menu = this.state.isOpen ? <div className={menuClass} aria-expanded='true'>
+    const menu = this.state.isOpen ? <div className={menuClass} aria-expanded='true' ref={this.menuRef}>
       {this.buildMenu()}
     </div> : null
 

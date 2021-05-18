@@ -24,16 +24,16 @@ declare module "@voyagerx/react-dropdown" {
     menuClassName?: string;
     arrowClassName?: string;
     disabled?: boolean;
-    arrowClosed?: React.ReactNode,
-    arrowOpen?: React.ReactNode,
+    arrowClosed?: React.ReactNode;
+    arrowOpen?: React.ReactNode;
     onChange?: (arg: Option<T>) => void;
     onFocus?: (arg: boolean) => void;
     value?: Option<T> | string;
     placeholder?: String;
+    scrollOnOpen?: boolean;
   }
 
-  class ReactDropdown extends React.Component<ReactDropdownProps> {
-  }
+  class ReactDropdown extends React.Component<ReactDropdownProps> {}
 
   export default ReactDropdown;
 }

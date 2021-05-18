@@ -13,9 +13,9 @@ var _classnames = _interopRequireDefault(require("classnames"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function _getRequireWildcardCache(nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { "default": obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj["default"] = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { "default": obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj["default"] = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -60,6 +60,7 @@ var Dropdown = /*#__PURE__*/function (_Component) {
       isOpen: false
     };
     _this.dropdownRef = /*#__PURE__*/(0, _react.createRef)();
+    _this.menuRef = /*#__PURE__*/(0, _react.createRef)();
     _this.mounted = true;
     _this.handleDocumentClick = _this.handleDocumentClick.bind(_assertThisInitialized(_this));
     _this.fireChangeEvent = _this.fireChangeEvent.bind(_assertThisInitialized(_this));
@@ -68,7 +69,7 @@ var Dropdown = /*#__PURE__*/function (_Component) {
 
   _createClass(Dropdown, [{
     key: "componentDidUpdate",
-    value: function componentDidUpdate(prevProps) {
+    value: function componentDidUpdate(prevProps, prevStates) {
       if (this.props.value !== prevProps.value) {
         if (this.props.value) {
           var selected = this.parseValue(this.props.value, this.props.options);
@@ -85,6 +86,12 @@ var Dropdown = /*#__PURE__*/function (_Component) {
               value: ''
             }
           });
+        }
+      }
+
+      if (this.state.isOpen !== prevStates.isOpen) {
+        if (this.props.scrollOnOpen && this.menuRef.current) {
+          this.menuRef.current.scrollIntoView();
         }
       }
     }
@@ -267,7 +274,8 @@ var Dropdown = /*#__PURE__*/function (_Component) {
 
       var menu = this.state.isOpen ? /*#__PURE__*/_react["default"].createElement("div", {
         className: menuClass,
-        "aria-expanded": "true"
+        "aria-expanded": "true",
+        ref: this.menuRef
       }, this.buildMenu()) : null;
       return /*#__PURE__*/_react["default"].createElement("div", {
         ref: this.dropdownRef,
