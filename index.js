@@ -20,7 +20,7 @@ class Dropdown extends Component {
     this.fireChangeEvent = this.fireChangeEvent.bind(this)
   }
 
-  componentDidUpdate(prevProps, prevStates) {
+  componentDidUpdate (prevProps, prevStates) {
     if (this.props.value !== prevProps.value) {
       if (this.props.value) {
         let selected = this.parseValue(this.props.value, this.props.options)
